@@ -6,7 +6,9 @@ package conSQL.demo.Controladores;
 
 import conSQL.demo.Entidades.Demo;
 import conSQL.demo.repositorio.DemoRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -14,20 +16,18 @@ import org.springframework.web.bind.annotation.RestController;
  * @author REG
  */
 @RestController
+@RequestMapping("/demo")
+@RequiredArgsConstructor
 public class Controlador {
     
-    private DemoRepository demoRepository;
-    
-    Controlador(DemoRepository demoRepository) {
-        this.demoRepository = demoRepository;
-    }
+    private final DemoRepository demoRepository;
 
     @GetMapping("/")
     public String home() {
         return "Hello World";
     }
     
-    @GetMapping("/api")
+    @GetMapping("/guardar")
     public String guardar() {
         
         Demo d = new Demo();
@@ -37,5 +37,10 @@ public class Controlador {
         System.out.println(demoRepository.findAll().size());
         System.out.println(demoRepository.findAll());
         return id.toString();
+    }
+    
+    @GetMapping("/borrarTodo")
+    public void borrarTodo() {
+        demoRepository.deleteAll();
     }
 }

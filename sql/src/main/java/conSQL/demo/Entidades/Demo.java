@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
 
 /**
@@ -15,31 +16,13 @@ import lombok.Data;
  * @author REG
  */
 @Entity
-// @Data
+@Data
 public class Demo {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "demo_seq", sequenceName = "demo_seq", allocationSize = 50)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "demo_seq")
     private Long id;
     
-    private String prop;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getProp() {
-        return prop;
-    }
-
-    public void setProp(String prop) {
-        this.prop = prop;
-    }
-    
-    
-    
+    private String prop;    
 }
